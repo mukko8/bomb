@@ -1,6 +1,9 @@
 import tkinter as tk
 import random
 
+def bt_click(e):
+    pass
+
 class Timer:
     def __init__(self,master):
         self.master=master
@@ -13,8 +16,8 @@ class Timer:
         button_frame=tk.Frame(master)
         button_frame.pack()
 
-        self.canvas=tk.Canvas(master,width=400,height=300)
-        self.canvas.pack()
+        #self.canvas=tk.Canvas(master,width=400,height=300)
+        #self.canvas.pack()
 
         self.start_button=tk.Button(master,text="Start",font=("Helvetica",10),command=self.start_timer,width=15,height=2)
         self.start_button.place(x=390,y=500)
@@ -22,9 +25,9 @@ class Timer:
     def start_timer(self):
         if self.remaining_time>0:
             self.update_timer()
-        else:
+        elif self.remaining_time==0:
             img=tk.PhotoImage(file='bombed.png')
-            self.canvas.create_image(400,300,image=img)
+            self.canvas.create_image(500,400,image=img)
 
     def update_timer(self):
         if self.remaining_time>0:
@@ -56,6 +59,21 @@ msg2 = tk.Label(
     fg='black'
 )
 msg2.place(x=180, y=60)
+
+images=[
+        tk.PhotoImage(file='hasami.png'),
+        tk.PhotoImage(file='safe.png'),
+        tk.PhotoImage(file='bombed.png')
+        ]
+lucky=random.randint(0,5)
+buttons=[None]*6
+for i in range(6):
+    x=30+(i%2)*750
+    y=100+(i//2)*150
+    b_name='safe' if lucky == i else str(i)
+    buttons[i]=tk.Button(image=images[0],name=b_name)
+    buttons[i].place(x=x,y=y)
+    buttons[i].bind('<ButtonPress>',bt_click)
 
 app=Timer(root)
 root.mainloop()
