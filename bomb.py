@@ -29,27 +29,27 @@ class Timer:
         self.start_button.place(x=390,y=500)
 
     def start_timer(self):
-        print("タイマーを開始しました")
-        if self.remaining_time>0:
+        if self.remaining_time>0.0:
             self.update_timer()
         else:
-            print("タイマーが終了しました")
-            #img=images[2]
-            img=tk.PhotoImage(file='bombed.png')
-            self.cvs.create_image(450,300,image=img)
+            self.master.update()
+            #print("タイマーが終了しました")
+            cvs.create_image(450,300,image=images[2])
+            hide_elements()
             self.label.place_forget()
             self.start_button.place_forget()
 
     def update_timer(self):
-        if self.remaining_time>0:
+        if self.remaining_time>0.0:
             self.label.config(text=f'{self.remaining_time:.1f}')
             self.remaining_time -= 0.1
             self.master.after(100,self.update_timer)
         else:
-            self.start_button.config(state=tk.DISABLED)
+            self.start_timer()
     
 root=tk.Tk()
 root.geometry("900x600")
+root.resizable(False,False)
 cvs=tk.Canvas(width=900,height=600)
 cvs.pack()
 cvs.create_rectangle(0,0,900,600,fill="lightgray")
