@@ -1,10 +1,15 @@
 import tkinter as tk
 import random
 
+def win_close():
+    root.after(5000, lambda: root.destroy())
+
 def bt_click(e):
     if 'out' in str(e.widget):
         cvs.create_image(450,300,image=images[2])
         hide_elements()
+        self.label.place_forget()
+        self.start_button.place_forget()
 
     else:
         e.widget['image']=images[1]
@@ -12,6 +17,9 @@ def bt_click(e):
 def hide_elements():
     msg.place_forget()
     msg2.place_forget()
+    win_close()
+    for button in buttons:
+        button.place_forget()
 
 class Timer:
     def __init__(self,master):
@@ -35,9 +43,9 @@ class Timer:
             self.master.update()
             #print("タイマーが終了しました")
             cvs.create_image(450,300,image=images[2])
-            hide_elements()
             self.label.place_forget()
             self.start_button.place_forget()
+            hide_elements()
 
     def update_timer(self):
         if self.remaining_time>0.0:
